@@ -1,5 +1,5 @@
 import Sidebar from "./Sidebar";
-
+import "../styles/Orders.css";
 interface Order {
   id: number;
   item: string;
@@ -15,10 +15,10 @@ const orders: Order[] = [
 const Orders: React.FC = () => {
   return (
     <>
+      <nav>
+        <Sidebar />
+      </nav>
       <main className="order-container">
-        <section>
-          <Sidebar />
-        </section>
         <div>
           <h1>Orders</h1>
           <ul>
