@@ -1,0 +1,22 @@
+.orderContainer {
+    width: calc(100% - 20vh);
+    height: 100vh;
+    background-color: aqua;
+    position: relative;
+    left: 20vw;
+}
+
+@media (min-width: 768px) {
+    .orderContainer {
+        width: calc(100% - 30vw);
+        left: 30vw;
+    }
+}
+
+/* Para pantallas grandes */
+@media (min-width: 1024px) {
+    .orderContainer {
+        width: calc(100% - 20vw);
+        left: 20vw;
+    }
+}

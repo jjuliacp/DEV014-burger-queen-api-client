@@ -11,21 +11,26 @@ import { IoClose } from "react-icons/io5";
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); // Guardar el índice activo
 
   // Función para alternar la visibilidad del sidebar
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleItemClick = (index: number) => {
+    setActiveIndex(index); // Actualizar el índice activo
+  };
+
   return (
     <>
-      <div className="sidebar-container">
+      <div className={`sidebar-container ${isOpen ? "active" : ""}`}>
         {/* Botón de menú hamburguesa visible en pantallas pequeñas */}
         <div className="hamburger-menu-nav" onClick={toggleSidebar}>
-          {!isOpen ? (
-            <IoMdMenu className="btn-menu-nav" />
-          ) : (
+          {isOpen ? (
             <IoClose className="btn-close-nav" />
+          ) : (
+            <IoMdMenu className="btn-menu-nav" />
           )}
           <div className="logo">
             <img src="src/assets/logo-bqqueen-compress.webp" alt="bqLogo" />
@@ -34,25 +39,44 @@ const Sidebar: React.FC = () => {
 
         {/* Sidebar */}
         <nav className={`nav-menu ${isOpen ? "active" : ""}`}>
-          <ul className="ul-menu">
-            <li>
+          <ul className="ulSidebar" id="ul-menu">
+            <li
+              className={`sidebar-item ${activeIndex === 0 ? "active" : ""}`}
+              onClick={() => handleItemClick(0)}
+            >
               <MdDashboard className="icon-list-nav" />
-              <a href="/panel">Panel</a>
+              <a className="sidebar-a" href="#">
+                Panel
+              </a>
             </li>
-            <li>
+            <li
+              className={`sidebar-item ${activeIndex === 1 ? "active" : ""}`}
+              onClick={() => handleItemClick(1)}
+            >
               <FaClipboardCheck className="icon-list-nav" />
-              <a href="/menu">Menú</a>
+              <a className="sidebar-a" href="/menu">
+                Menú
+              </a>
             </li>
-            <li>
+            <li
+              className={`sidebar-item ${activeIndex === 2 ? "active" : ""}`}
+              onClick={() => handleItemClick(2)}
+            >
               <MdOutlineRestaurantMenu className="icon-list-nav" />
-              <a href="/pedidos">Pedidos</a>
+              <a className="sidebar-a" href="#">
+                Pedidos
+              </a>
             </li>
           </ul>
           <div className="logout-nav">
-            <a href="#">Name - rol </a>
+            <a className="sidebar-a" href="#">
+              Name - rol{" "}
+            </a>
             <div>
               <MdOutlineLogin className="btn-logout-nav" />
-              <a href="#">Cerrar Sesión</a>
+              <a className="sidebar-a" href="#">
+                Cerrar Sesión
+              </a>
             </div>
           </div>
         </nav>
