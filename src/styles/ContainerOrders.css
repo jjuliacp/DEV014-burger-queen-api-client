@@ -1,15 +1,17 @@
 .orderContainer {
-    width: calc(100% - 20vh);
+    width: 100%;
     height: 100vh;
-    background-color: aqua;
     position: relative;
-    left: 20vw;
+    display: flex;
+    justify-content: center;
+
 }
 
 @media (min-width: 768px) {
     .orderContainer {
         width: calc(100% - 30vw);
         left: 30vw;
+        flex-direction: column;
     }
 }
 
