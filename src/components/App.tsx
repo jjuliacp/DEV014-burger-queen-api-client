@@ -1,15 +1,21 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./Login";
-import Orders from "./OrdersPage";
 
 import MenuPage from "./MenuPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/menu" element={<MenuPage />} />
-      <Route path="/orders" element={<Orders />} />
+      <Route
+        path="/menu"
+        element={
+          <ProtectedRoute>
+            <MenuPage />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
