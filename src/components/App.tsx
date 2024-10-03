@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./Login";
-import Orders from "./Orders";
+
+import MenuPage from "./MenuPage";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
@@ -8,10 +9,10 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route
-        path="/orders"
+        path="/menu"
         element={
           <ProtectedRoute>
-            <Orders />
+            <MenuPage />
           </ProtectedRoute>
         }
       />

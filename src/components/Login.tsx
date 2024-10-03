@@ -37,7 +37,7 @@ const Login: React.FC = () => {
       setToken(data.accessToken);
       console.log("Respuesta de la API:", data);
 
-      navigate("/orders");
+      navigate("/panel");
     } catch (error) {
       setError("El correo y/o la contraseña son incorrectas");
     } finally {
