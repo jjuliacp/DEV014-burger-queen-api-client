@@ -1,0 +1,198 @@
+ .loginMain {
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 1rem;
+   background-color: #F9F9F9;
+   flex-direction: column;
+   /* En móviles, los elementos se apilan */
+ }
+
+ .login-section-left {
+   display: none;
+   /* No se muestra la imagen en móviles */
+ }
+
+ .login-section-rigth {
+   width: 100%;
+   max-width: 360px;
+   background-color: #fff;
+   padding: 2rem;
+   border-radius: 10px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   text-align: center;
+ }
+
+ .login-form-title {
+   font-size: 1.8rem;
+   color: #B7000F;
+   margin-bottom: 1rem;
+   font-family: "Anton", sans-serif;
+ }
+
+ .login-form {
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
+ }
+
+ .email-container,
+ .password-container {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   text-align: left;
+ }
+
+ label {
+   font-size: 1rem;
+   color: #696969;
+   font-family: "Roboto", sans-serif;
+   font-weight: 600;
+ }
+
+ input {
+   padding: 1rem;
+   border: 2px solid #d9d9d9;
+   border-radius: 5px;
+   font-size: 1rem;
+   color: #696969;
+   font-family: "Roboto", sans-serif;
+   font-weight: 300;
+ }
+
+ input:focus {
+   border-color: #4F4E50;
+   outline: none;
+ }
+
+ button {
+   padding: 0.8rem;
+   background-color: #696969;
+   color: #fff;
+   font-size: 1.2rem;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: 0.5s;
+ }
+
+ button:hover {
+   background-position: right;
+   background-color: #242323;
+ }
+
+ p {
+   color: red;
+   font-size: 0.9rem;
+   margin-top: 0.5rem;
+ }
+
+ /* Media queries para tablets y desktop */
+ @media (min-width: 768px) {
+   .loginMain {
+     flex-direction: row;
+     /* Cambiar a disposición de fila para pantallas más grandes */
+     justify-content: space-between;
+     gap: 2rem;
+     padding: 0rem;
+   }
+
+   .login-section-left {
+     display: block;
+     /* Mostrar la imagen en pantallas más grandes */
+
+     max-width: 50%;
+     /* Que la sección izquierda ocupe la mitad de la pantalla */
+   }
+
+   .login-section-left img {
+     width: 100%;
+     /* Asegurar que la imagen ocupe todo el ancho de la sección */
+     height: auto;
+     /* Mantener la proporción de la imagen */
+   }
+
+   .login-section-rigth {
+     max-width: 50%;
+     padding: 0.3rem 3rem;
+     margin-right: 1rem;
+     height: 400px;
+
+   }
+
+   .login-form-title {
+     font-size: 2rem;
+   }
+
+   .login-form {
+     gap: 1.5rem;
+   }
+ }
+
+ /* Para pantallas grandes */
+ @media (min-width: 1024px) {
+   .login-section-left {
+     max-width: 45%;
+   }
+
+   .login-section-rigth {
+     max-width: 45%;
+     width: 600px;
+     height: 600px;
+     margin-right: 200px;
+     padding: 5rem;
+   }
+
+   .login-form-title {
+     font-size: 2.8rem;
+   }
+
+
+ }
+
+ /* Escritorio grande   
+@media only screen and (min-width: 992px) {
+.loginMain{
+  height: 100vh;
+  width: max(40%, 600px);
+}
+.login-section-left{
+    text-align:justify;
+    width: 40%;
+  
+}
+.login-section-left img{
+    background-color: antiquewhite;
+   }
+
+}
+.login-section-rigth{
+   width: 300px;
+   
+  
+}
+
+/*Escritorio pequeño / tablet  
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+.loginMain{
+    flex-direction: row;
+    max-width: 768px;
+}
+.login-image{
+    flex:1;
+    margin-right: 2rem;
+}
+
+}
+
+/* Tablets y phablets  
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}*/
+
+ /* Teléfonos  
+@media only screen and (max-width: 575px) {
+}
