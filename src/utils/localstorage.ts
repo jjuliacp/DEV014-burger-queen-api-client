@@ -1,9 +1,9 @@
-// export const getApiKey = (): string | null => { //  null si no existe
-//     const key = localStorage.getItem("apikey");
-//     return key;
-// };
+export const getToken = (): string | null => { //  null si no existe
+    const token = localStorage.getItem("token");
+    return token;
+};
 
 
-// export const setApiKey = (key: string): void => { //  null si no existe
-//     localStorage.setItem("apikey", key);
-// };
+export const setToken = (accestoken: string): void => { //  null si no existe
+    localStorage.setItem("token", accestoken);
+};
