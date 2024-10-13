@@ -29,15 +29,15 @@ const Login: React.FC = () => {
         body: JSON.stringify({ email, password }), // Enviar datos de login
       });
 
-      if (!response.ok) {
-        setError("el correo y/o la contraseña son incorrectas"); // Limpiar el error después de un intento de login exitoso
-        setLoading(false);
-      }
       const data = await response.json();
       setToken(data.accessToken);
       console.log("Respuesta de la API:", data);
-
-      navigate("/panel");
+      if (!response.ok || (data && data.error)) {
+        setError(data?.error || "el correo y/o la contraseña son incorrectas");
+        setLoading(false);
+        return;
+      }
+      navigate("/orders");
     } catch (error) {
       setError("El correo y/o la contraseña son incorrectas");
     } finally {
