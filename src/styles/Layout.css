@@ -1,14 +1,14 @@
-.orderContainer {
+.sectionContainer {
     width: 100%;
     height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
-
+    overflow: hidden;
 }
 
 @media (min-width: 768px) {
-    .orderContainer {
+    .sectionContainer {
         width: calc(100% - 30vw);
         left: 30vw;
         flex-direction: column;
@@ -17,7 +17,7 @@
 
 /* Para pantallas grandes */
 @media (min-width: 1024px) {
-    .orderContainer {
+    .sectionContainer {
         width: calc(100% - 20vw);
         left: 20vw;
     }

@@ -15,8 +15,6 @@
 }
 
 .nav-menu {
-
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -28,15 +26,11 @@
 /* Mostrar sidebar cuando está activo (menú abierto en pantallas pequeñas) */
 .nav-menu.active {
     transform: translateX(0);
-
-
 }
 
 .hamburger-menu-nav {
     display: flex;
     align-items: center;
-
-
 }
 
 .logo img {
@@ -142,17 +136,11 @@
 
     }
 
-
-
     .sidebar-item,
     .sidebar-a {
         font-size: 1.1rem;
         align-items: center;
     }
-
-
-
-
 
     .logout-nav {
 
@@ -168,7 +156,8 @@
         font-size: 2rem;
     }
 
-    .btn-close-nav {
+    .btn-close-nav,
+    .btn-menu-nav {
         display: none;
     }
 
@@ -202,4 +191,10 @@
     .logout-nav {
         margin-top: 20rem;
     }
+
+    .btn-close-nav,
+    .btn-menu-nav {
+        display: none;
+    }
+
 }

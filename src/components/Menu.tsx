@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Menu.css";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
+import OrderSummary from "./OrderSummary";
+import { fetchProducts, sendOrder } from "../Services/api";
 
 // Interfaz para definir la estructura de un producto
 interface Product {
@@ -8,20 +10,29 @@ interface Product {
   name: string;
   price: number;
   quantity: number;
+  type: string;
 }
 
 const Menu: React.FC = () => {
   const [order, setOrder] = useState<Array<Product>>([]);
   const [total, setTotal] = useState(0);
-
-  // Datos de ejemplo: array de hamburguesas
-  const products: Array<Product> = [
-    { id: "1", name: "Hamburguesa Clásica", price: 5, quantity: 0 },
-    { id: "2", name: "Hamburguesa con Queso", price: 6, quantity: 0 },
-    { id: "3", name: "Hamburguesa Doble", price: 8, quantity: 0 },
-    { id: "4", name: "Hamburguesa Vegana", price: 7, quantity: 0 },
-    { id: "5", name: "Hamburguesa BBQ", price: 9, quantity: 0 },
-  ];
+  const [products, setProducts] = useState<Array<Product>>([]);
+  const [selected, setSelected] = useState(""); // estado para type
+  const [isOpen, setIsOpen] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const productsData = await fetchProducts();
+        setProducts(productsData);
+        console.log(productsData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error;
+      }
+    };
+    loadProducts(); // llamar a la funcion para obtener productos
+  }, []); // para que efecto se ejecute una sola vez
 
   // Función para agregar productos al pedido
   const addProduct = (product: Product) => {
@@ -66,10 +77,47 @@ const Menu: React.FC = () => {
     const productInOrder = order.find((p) => p.id === productId);
     return productInOrder ? productInOrder.quantity : 0;
   };
+
+  const increaseQuantity = (productId: string) => {
+    const product = products.find((p) => p.id === productId);
+    if (product) addProduct(product);
+  };
+
   // Función para contar el número total de items en el pedido
   const getTotalItems = () => {
     return order.reduce((sum, product) => sum + product.quantity, 0);
   };
+
+  //filtrado
+  const filteredProducts = products.filter(
+    (product) => selected === "" || product.type === selected
+  );
+  //   función para enviar el pedido a la cocina
+  const processOrder = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+  const sendOrderToKitchen = async () => {
+    if (!customerName.trim()) {
+      alert("Por favor, ingrese el nombre del cliente.");
+      return;
+    }
+    if (order.length === 0) {
+      return;
+    }
+
+    try {
+      const result = await sendOrder(customerName, order, total);
+      console.log("Pedido enviado exitosamente:", result);
+      // Limpiar el pedido después de enviarlo
+      setOrder([]);
+      setTotal(0);
+      setCustomerName(""); // Limpia el nombre del cliente
+      setIsOpen(true); // Abrir el resumen del pedido
+    } catch (error) {
+      console.error("Error enviando el pedido:", error);
+    }
+  };
+
   // Render del componente
   return (
     <>
@@ -77,13 +125,31 @@ const Menu: React.FC = () => {
         <h1>Menú</h1>
 
         <div className="menuToggle">
-          <button className="toggleButton">Desayunos</button>
-          <button className="toggleButton active">Almuerzo/Cena</button>
+          <button
+            className={`toggleButton ${selected === "" ? "active" : ""}`}
+            onClick={() => setSelected("")}
+          >
+            Todo
+          </button>
+          <button
+            className={`toggleButton ${
+              selected === "Breakfast" ? "active" : ""
+            }`}
+            onClick={() => setSelected("Breakfast")}
+          >
+            Desayunos
+          </button>
+          <button
+            className={`toggleButton ${selected === "Lunch" ? "active" : ""}`}
+            onClick={() => setSelected("Lunch")}
+          >
+            Almuerzo/Cena
+          </button>
         </div>
 
         <section className="menuSection">
-          <h2 className="menuSectionTittle">Hamburguesas</h2>
-          {products.map((product, index) => (
+          {/* <h2 className="menuSectionTittle">Hamburguesas</h2> */}
+          {filteredProducts.map((product, index) => (
             <div key={`${product.id}-${index}`} className="menuProduct">
               <div className="productDetails">
                 <h3 className="menuProductH3">{product.name}</h3>
@@ -107,36 +173,28 @@ const Menu: React.FC = () => {
               </div>
             </div>
           ))}
+          {/* Botón para enviar pedido (sin funcionalidad por ahora) */}
         </section>
-
-        {/* Resumen del pedido */}
-        <section className="menuResumen">
-          <div>
-            <h2>Resumen del Pedido</h2>
-            {order.length === 0 ? (
-              <p>No hay productos en el pedido.</p>
-            ) : (
-              order.map((item, index) => (
-                <div key={`${item.id}-${index}`}>
-                  <p>
-                    {item.name} - ${item.price} x {item.quantity}
-                  </p>
-                  <button onClick={() => removeProduct(item.id)}>
-                    Eliminar
-                  </button>
-                </div>
-              ))
-            )}
-            <h3>Total: ${total}</h3>
-          </div>
-        </section>
-
-        {/* Botón para enviar pedido (sin funcionalidad por ahora) */}
-        <button disabled={order.length === 0}>
+        <button
+          disabled={order.length === 0}
+          onClick={processOrder} // Llama a la función cuando el botón es presionado
+        >
           {order.length === 0
             ? "Nuevo Pedido (0 items)"
             : `Procesar Pedido (${getTotalItems()} items)`}
         </button>
+        {isOpen && (
+          <OrderSummary
+            order={order}
+            total={total}
+            isOpen={isOpen}
+            customerName={customerName}
+            setCustomerName={setCustomerName}
+            removeProduct={removeProduct}
+            increaseQuantity={increaseQuantity}
+            sendOrderBtnClick={sendOrderToKitchen}
+          />
+        )}
       </main>
     </>
   );
