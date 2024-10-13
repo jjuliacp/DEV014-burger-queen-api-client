@@ -1,22 +1,13 @@
-import { Route, Routes } from "react-router-dom";
-import ContainerOrders from "./ContainerOrders";
-import Sidebar from "./Sidebar";
-import Menu from "./Menu";
+import Layout from "./Layout";
+import OrdersView from "./OrdersView";
 
 const OrdersPage: React.FC = () => {
   return (
     <>
-      <nav>
-        <Sidebar />
-      </nav>
       <main>
-        <ContainerOrders>
-          <Routes>
-            <Route path="/menu" element={<Menu />} />
-
-            {/* Puedes agregar más rutas según necesites */}
-          </Routes>
-        </ContainerOrders>
+        <Layout>
+          <OrdersView />
+        </Layout>
       </main>
     </>
   );

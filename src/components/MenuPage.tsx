@@ -1,19 +1,13 @@
-import ContainerOrders from "./ContainerOrders";
+import Layout from "./Layout";
 import Menu from "./Menu";
-
-import Sidebar from "./Sidebar";
 
 const MenuPage: React.FC = () => {
   return (
     <>
-      {" "}
-      <nav>
-        <Sidebar />
-      </nav>
       <main>
-        <ContainerOrders>
+        <Layout>
           <Menu />
-        </ContainerOrders>
+        </Layout>
       </main>
     </>
   );

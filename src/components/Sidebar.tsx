@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MdDashboard,
   MdOutlineLogin,
@@ -8,6 +8,7 @@ import "../styles/Sidebar.css";
 import { IoMdMenu } from "react-icons/io";
 import { FaClipboardCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,20 +18,46 @@ const Sidebar: React.FC = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  // Efecto para actualizar el índice activo basado en la ruta actual
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/panel":
+        setActiveIndex(0);
+        break;
+      case "/menu":
+        setActiveIndex(1);
+        break;
+      case "/orders":
+        setActiveIndex(2);
+        break;
+      default:
+        setActiveIndex(null);
+        break;
+    }
+  }, [location.pathname]); // Dependencia de location
 
   const handleItemClick = (index: number) => {
     setActiveIndex(index); // Actualizar el índice activo
+    setIsOpen(false);
   };
 
   return (
     <>
-      <div className={`sidebar-container ${isOpen ? "active" : ""}`}>
+      <aside className={`sidebar-container ${isOpen ? "active" : ""}`}>
         {/* Botón de menú hamburguesa visible en pantallas pequeñas */}
-        <div className="hamburger-menu-nav" onClick={toggleSidebar}>
+        <div className="hamburger-menu-nav">
           {isOpen ? (
-            <IoClose className="btn-close-nav" />
+            <IoClose
+              className="btn-close-nav"
+              onClick={toggleSidebar}
+              aria-label="Cerrar menú"
+            />
           ) : (
-            <IoMdMenu className="btn-menu-nav" />
+            <IoMdMenu
+              className="btn-menu-nav"
+              onClick={toggleSidebar}
+              aria-label="Abrir menú"
+            />
           )}
           <div className="logo">
             <img src="src/assets/logo-bqqueen-compress.webp" alt="bqLogo" />
@@ -45,42 +72,40 @@ const Sidebar: React.FC = () => {
               onClick={() => handleItemClick(0)}
             >
               <MdDashboard className="icon-list-nav" />
-              <a className="sidebar-a" href="#">
+              <Link className="sidebar-a" to="/panel">
                 Panel
-              </a>
+              </Link>
             </li>
             <li
               className={`sidebar-item ${activeIndex === 1 ? "active" : ""}`}
               onClick={() => handleItemClick(1)}
             >
               <FaClipboardCheck className="icon-list-nav" />
-              <a className="sidebar-a" href="/menu">
+              <Link className="sidebar-a" to="/menu">
                 Menú
-              </a>
+              </Link>
             </li>
             <li
               className={`sidebar-item ${activeIndex === 2 ? "active" : ""}`}
               onClick={() => handleItemClick(2)}
             >
               <MdOutlineRestaurantMenu className="icon-list-nav" />
-              <a className="sidebar-a" href="#">
+              <Link className="sidebar-a" to="/orders">
                 Pedidos
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="logout-nav">
-            <a className="sidebar-a" href="#">
-              Name - rol{" "}
-            </a>
+            <span className="sidebar-a">Name - rol </span>
             <div>
               <MdOutlineLogin className="btn-logout-nav" />
-              <a className="sidebar-a" href="#">
+              <Link className="sidebar-a" to="/logout">
                 Cerrar Sesión
-              </a>
+              </Link>
             </div>
           </div>
         </nav>
-      </div>
+      </aside>
     </>
   );
 };
