@@ -94,7 +94,7 @@
  @media (min-width: 768px) {
    .loginMain {
      flex-direction: row;
-     /* Cambiar a disposición de fila para pantallas más grandes */
+
      justify-content: space-between;
      gap: 2rem;
      padding: 0rem;
@@ -102,17 +102,13 @@
 
    .login-section-left {
      display: block;
-     /* Mostrar la imagen en pantallas más grandes */
-
      max-width: 50%;
-     /* Que la sección izquierda ocupe la mitad de la pantalla */
+
    }
 
    .login-section-left img {
      width: 100%;
-     /* Asegurar que la imagen ocupe todo el ancho de la sección */
      height: auto;
-     /* Mantener la proporción de la imagen */
    }
 
    .login-section-rigth {
@@ -152,47 +148,3 @@
 
 
  }
-
- /* Escritorio grande   
-@media only screen and (min-width: 992px) {
-.loginMain{
-  height: 100vh;
-  width: max(40%, 600px);
-}
-.login-section-left{
-    text-align:justify;
-    width: 40%;
-  
-}
-.login-section-left img{
-    background-color: antiquewhite;
-   }
-
-}
-.login-section-rigth{
-   width: 300px;
-   
-  
-}
-
-/*Escritorio pequeño / tablet  
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-
-.loginMain{
-    flex-direction: row;
-    max-width: 768px;
-}
-.login-image{
-    flex:1;
-    margin-right: 2rem;
-}
-
-}
-
-/* Tablets y phablets  
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-}*/
-
- /* Teléfonos  
-@media only screen and (max-width: 575px) {
-}
