@@ -6,11 +6,7 @@ interface ContainerOrdersProps {
 }
 
 const Layout: React.FC<ContainerOrdersProps> = ({ children }) => {
-  return (
-    <div className="layout">
-      <main className="sectionContainer">{children}</main>
-    </div>
-  );
+  return <main className="layout sectionContainer">{children}</main>;
 };
 
 export default Layout;
