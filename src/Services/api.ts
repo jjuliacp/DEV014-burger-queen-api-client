@@ -1,3 +1,4 @@
+import { parseJwt } from "../utils/decodeToken";
 import { getToken } from "../utils/localstorage";
 
 // Función para obtener productos del backend
@@ -19,7 +20,14 @@ export const fetchProducts = async () => {
 
 
 // Función para enviar el pedido a la cocina
-export const sendOrder = async (customerName: string, order: any, total: number) => {
+export const sendOrder = async (customerName: string, order: any) => {
+    const token = getToken();
+    console.log("Token:", token);
+    const decodedToken = parseJwt(token)
+    const userId = Number(decodedToken.sub);
+    // formatear fecha
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${currentDate.getDate().toString().padStart(2, '0')}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}`;
     const response = await fetch("http://localhost:8080/orders", {
         method: "POST",
         headers: {
@@ -27,20 +35,23 @@ export const sendOrder = async (customerName: string, order: any, total: number)
             Authorization: `Bearer ${getToken()}`,
         },
         body: JSON.stringify({
+            userId: userId,
             client: customerName,         // Nombre del cliente
-            dateEntry: new Date().toISOString(),  // Fecha actual para la creación de la orden
             products: order.map((product: any) => ({
+                qty: product.quantity,    // Cantidad de productos
                 product: {
-                    qty: product.quantity,    // Cantidad de productos
                     id: product.id,
                     name: product.name,
                     price: product.price,
                     type: product.type,
+                    dateEntry: formattedDate,  // Fecha actual para la creación de la orden
                 },
             })),
             status: "pending",            // Estado del pedido
 
-            total,
+            dataEntry: formattedDate,  // Fecha actual para la creación de la orden
+
+
         }),
     });
 

@@ -78,7 +78,7 @@ const Login: React.FC = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
           </button>
-          {error && <p>{error}</p>}
+          {error && <p className="login-p">{error}</p>}
         </form>
       </section>
     </main>

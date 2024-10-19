@@ -106,7 +106,7 @@ const Menu: React.FC = () => {
     }
 
     try {
-      const result = await sendOrder(customerName, order, total);
+      const result = await sendOrder(customerName, order);
       console.log("Pedido enviado exitosamente:", result);
       // Limpiar el pedido después de enviarlo
       setOrder([]);

@@ -1,0 +1,30 @@
+ .ordersContainer {
+     padding: 3rem;
+
+ }
+
+ .ordersContainer h1,
+ .ordersContainer .filter-buttons,
+ .ordersContainer button {
+     margin-bottom: 10px;
+ }
+
+ .ordersList {
+     max-height: 600px;
+     /* Define una altura fija para el área con scroll */
+     overflow-y: auto;
+     /* Activa el scroll vertical */
+     list-style-type: none;
+     display: flex;
+     flex-wrap: wrap;
+     flex-direction: row;
+     gap: 1rem;
+     text-decoration: none;
+
+ }
+
+ .ordersItem {
+     width: 100%;
+     color: #1C1B1F;
+
+ }
