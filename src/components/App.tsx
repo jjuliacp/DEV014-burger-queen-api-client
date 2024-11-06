@@ -4,7 +4,7 @@ import MenuPage from "./MenuPage";
 import ProtectedRoute from "./ProtectedRoute";
 import OrdersPage from "./OrdersPage";
 import Sidebar from "./Sidebar";
-import WaiterView from "./WaiterView";
+import WaiterPanel from "./WaiterPanel";
 
 function App() {
   const location = useLocation();
@@ -17,7 +17,7 @@ function App() {
       {/* Definición de rutas */}
       <Routes>
         <Route index path="/" element={<Login />} />
-        <Route index path="/panel" element={<WaiterView />} />
+        <Route index path="/panel" element={<WaiterPanel />} />
         <Route
           path="/menu"
           element={

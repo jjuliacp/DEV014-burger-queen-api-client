@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOrders } from "../Services/api";
 import "../styles/OrdersView.css";
+import { useNavigate } from "react-router-dom";
 // para definir la estructura de la orden
 interface Order {
   id: string;
@@ -16,6 +17,8 @@ interface Order {
 
 const OrdersView: React.FC = () => {
   const [orders, setOrders] = useState<Array<Order>>([]);
+  const [filter, setFilter] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     const loadOrders = async () => {
       try {
@@ -42,21 +45,34 @@ const OrdersView: React.FC = () => {
     );
   };
   console.log("Total a pagar:", total);
+
+  const handleNewOrder = () => {
+    navigate("/menu"); // Ajusta la ruta según tu configuración de rutas
+  };
+  // filtrar botones
+  const filteredOrders = orders.filter((order) => {
+    if (filter === "pending" || filter === "delivering") {
+      return order.status === "pending" || order.status === "delivering";
+    }
+    if (filter === "delivered" || filter === "canceled") {
+      return order.status === "delivered" || order.status === "canceled";
+    }
+    return true;
+  });
+
   return (
     <section className="ordersContainer">
       <h1>Pedidos</h1>
-      <button onClick={() => console.log("BOTON DE NUEVO PEDIDO")}>
-        Nuevo Pedido
-      </button>
+      <button onClick={handleNewOrder}>Nuevo Pedido</button>
       <div className="filter-buttons">
-        <button onClick={() => console.log("activos")}>Activos</button>
-        <button onClick={() => console.log("cerrados")}>Cerrados</button>
+        <button onClick={() => setFilter("pending")}>Activos</button>
+        <button onClick={() => setFilter("delivered")}>Cerrados</button>
       </div>
-      {orders.length === 0 ? (
+      {filteredOrders.length === 0 ? (
         <p>No hay pedidos disponibles</p>
       ) : (
         <ul className="ordersList">
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <li key={order.id} className="ordersItem">
               <h2>Pedido #{order.id}</h2>
               <p>Estado: {order.status}</p>
