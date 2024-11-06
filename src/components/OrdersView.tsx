@@ -3,11 +3,12 @@ import { getOrders } from "../Services/api";
 import "../styles/OrdersView.css";
 import { useNavigate } from "react-router-dom";
 // para definir la estructura de la orden
-interface Order {
-  id: string;
+export interface Order {
+  id: number;
   client: string;
   status: string;
   dataEntry: string;
+  dateProcessed?: string;
   products: Array<{
     qty: number;
     name: string;

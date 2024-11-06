@@ -30,14 +30,16 @@ const Login: React.FC = () => {
       });
 
       const data = await response.json();
-      setToken(data.accessToken);
+      setToken(data.accessToken, data.user.role);
+
       console.log("Respuesta de la API:", data);
+      console.log("Respuesta de la API:", data.user.role);
       if (!response.ok || (data && data.error)) {
         setError(data?.error || "el correo y/o la contraseña son incorrectas");
         setLoading(false);
         return;
       }
-      navigate("/orders");
+      navigate("/panel");
     } catch (error) {
       setError("El correo y/o la contraseña son incorrectas");
     } finally {

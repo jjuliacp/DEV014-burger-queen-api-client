@@ -5,6 +5,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import OrdersPage from "./OrdersPage";
 import Sidebar from "./Sidebar";
 import WaiterPanel from "./WaiterPanel";
+import ChefDashboard from "./ChefDashboard";
+import KitchenOrders from "./KitchenOrders";
 
 function App() {
   const location = useLocation();
@@ -29,8 +31,24 @@ function App() {
         <Route
           path="/orders"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requiredRole="waiter">
               <OrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chef_panel"
+          element={
+            <ProtectedRoute requiredRole="chef">
+              <ChefDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/kitchen_orders"
+          element={
+            <ProtectedRoute requiredRole="chef">
+              <KitchenOrders />
             </ProtectedRoute>
           }
         />

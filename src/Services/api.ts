@@ -83,3 +83,23 @@ export const getOrders = async () => {
         throw error;
     }
 };
+
+//modificar el estatus de orden 
+export const updateOrderStatus = async (orderId: number, status: string, dateProcessed?: string) => {
+    try {
+        const response = await fetch(`http://localhost:8080/orders/${orderId}`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${getToken()}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status, dateProcessed }),
+        });
+        if (!response.ok) throw new Error("Error actualizando el estado del pedido");
+        const data = await response.json();
+        return data
+    } catch (error) {
+        console.error("Error actualizando el estado del pedido:", error);
+        throw error;
+    }
+};
