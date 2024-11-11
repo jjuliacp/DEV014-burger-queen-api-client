@@ -8,13 +8,14 @@ import "../styles/Sidebar.css";
 import { IoMdMenu } from "react-icons/io";
 import { FaClipboardCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserRole } from "../utils/localstorage";
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null); // Guardar el índice activo
   const [role, setRole] = useState<string>("");
+  const navigate = useNavigate();
   // Función para alternar la visibilidad del sidebar
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -42,7 +43,11 @@ const Sidebar: React.FC = () => {
     setActiveIndex(index); // Actualizar el índice activo
     setIsOpen(false);
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/");
+  };
   return (
     <>
       <aside className={`sidebar-container ${isOpen ? "active" : ""}`}>
@@ -128,9 +133,9 @@ const Sidebar: React.FC = () => {
             <span className="sidebar-a">Name - rol </span>
             <div>
               <MdOutlineLogin className="btn-logout-nav" />
-              <Link className="sidebar-a" to="/logout">
+              <button className="sidebar-a" onClick={handleLogout}>
                 Cerrar Sesión
-              </Link>
+              </button>
             </div>
           </div>
         </nav>
