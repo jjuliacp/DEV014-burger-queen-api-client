@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/Login.css";
-import { setToken } from "../utils/localstorage";
+import { getUserRole, setToken } from "../utils/localstorage";
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
@@ -39,7 +39,12 @@ const Login: React.FC = () => {
         setLoading(false);
         return;
       }
-      navigate("/panel");
+     const userRole = getUserRole();
+      if (userRole === "chef") {
+        navigate("/chef_panel"); // Redirecciona a la página del panel admin
+      } else {
+        navigate("/panel"); // Redirecciona a la página de pedidos
+      }
     } catch (error) {
       setError("El correo y/o la contraseña son incorrectas");
     } finally {

@@ -130,10 +130,10 @@ const Sidebar: React.FC = () => {
             )}
           </ul>
           <div className="logout-nav">
-            <span className="sidebar-a">Name - rol </span>
-            <div>
+            <span className="sidebar-a">Rol: {role.charAt(0).toUpperCase()+ role.slice(1)} </span>
+            <div  className="sidebar-logout">
               <MdOutlineLogin className="btn-logout-nav" />
-              <button className="sidebar-a" onClick={handleLogout}>
+              <button className="btn-logout" onClick={handleLogout}>
                 Cerrar Sesión
               </button>
             </div>

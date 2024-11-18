@@ -25,13 +25,13 @@ const KitchenOrders: React.FC = () => {
       const ordersData = await getOrders();
 
       const sortedOrders = ordersData.sort(
-        (a, b) =>
+        (a: Order, b: Order) =>
           new Date(b.dataEntry).getTime() - new Date(a.dataEntry).getTime()
       );
       console.log(sortedOrders);
       setOrders(sortedOrders);
 
-      sortedOrders.forEach((order) => {
+      sortedOrders.forEach((order: Order) => {
         if (order.status === "delivered" && order.dateProcessed) {
           const time = calculateOrders(order.dataEntry, order.dateProcessed);
           setDeliveryTimes((prev) => ({ ...prev, [order.id]: time }));
