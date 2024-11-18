@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/Login.css";
 import { getUserRole, setToken } from "../utils/localstorage";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../assets/burguerqueen-compress.webp"
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
   return (
     <main className="loginMain">
       <section className="login-section-left">
-        <img src="src/assets/burguerqueen-compress.webp" alt="bqLogo" />
+        <img src={logo} alt="bqLogo" />
       </section>
       <section className="login-section-rigth">
         <h2 className="login-form-title">¡Bienvenido a Burger Queen!</h2>

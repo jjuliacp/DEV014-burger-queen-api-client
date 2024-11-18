@@ -10,7 +10,7 @@ import { FaClipboardCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserRole } from "../utils/localstorage";
-
+import logoSideBar from "../assets/logo-bqqueen-compress.webp"
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null); // Guardar el índice activo
@@ -67,7 +67,7 @@ const Sidebar: React.FC = () => {
             />
           )}
           <div className="logo">
-            <img src="src/assets/logo-bqqueen-compress.webp" alt="bqLogo" />
+            <img src={logoSideBar} alt="bqLogo" />
           </div>
         </div>
 
