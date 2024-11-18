@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../styles/Login.css";
-import { setToken } from "../utils/localstorage";
+import { getUserRole, setToken } from "../utils/localstorage";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../assets/burguerqueen-compress.webp"
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -30,14 +30,21 @@ const Login: React.FC = () => {
       });
 
       const data = await response.json();
-      setToken(data.accessToken);
+      setToken(data.accessToken, data.user.role);
+
       console.log("Respuesta de la API:", data);
+      console.log("Respuesta de la API:", data.user.role);
       if (!response.ok || (data && data.error)) {
         setError(data?.error || "el correo y/o la contraseña son incorrectas");
         setLoading(false);
         return;
       }
-      navigate("/orders");
+     const userRole = getUserRole();
+      if (userRole === "chef") {
+        navigate("/chef_panel"); // Redirecciona a la página del panel admin
+      } else {
+        navigate("/panel"); // Redirecciona a la página de pedidos
+      }
     } catch (error) {
       setError("El correo y/o la contraseña son incorrectas");
     } finally {
@@ -48,7 +55,7 @@ const Login: React.FC = () => {
   return (
     <main className="loginMain">
       <section className="login-section-left">
-        <img src="src/assets/burguerqueen-compress.webp" alt="bqLogo" />
+        <img src={logo} alt="bqLogo" />
       </section>
       <section className="login-section-rigth">
         <h2 className="login-form-title">¡Bienvenido a Burger Queen!</h2>
@@ -78,7 +85,7 @@ const Login: React.FC = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
           </button>
-          {error && <p>{error}</p>}
+          {error && <p className="login-p">{error}</p>}
         </form>
       </section>
     </main>

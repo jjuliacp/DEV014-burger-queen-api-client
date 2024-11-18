@@ -106,7 +106,7 @@ const Menu: React.FC = () => {
     }
 
     try {
-      const result = await sendOrder(customerName, order, total);
+      const result = await sendOrder(customerName, order);
       console.log("Pedido enviado exitosamente:", result);
       // Limpiar el pedido después de enviarlo
       setOrder([]);
@@ -121,7 +121,7 @@ const Menu: React.FC = () => {
   // Render del componente
   return (
     <>
-      <main className="menuContainer">
+      <section className="menuContainer">
         <h1>Menú</h1>
 
         <div className="menuToggle">
@@ -195,7 +195,7 @@ const Menu: React.FC = () => {
             sendOrderBtnClick={sendOrderToKitchen}
           />
         )}
-      </main>
+      </section>
     </>
   );
 };

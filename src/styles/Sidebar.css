@@ -90,8 +90,26 @@
 
 }
 
-.btn-logout-nav {
-    color: #fff
+.sidebar-logout {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: #fff;
+}
+
+.sidebar-logout:hover,
+.btn-logout:hover {
+    background-color: transparent;
+    color: #dfdfdf;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+
+.btn-logout {
+    color: #fff;
+    background-color: transparent;
 }
 
 .sidebar-item.active .sidebar-a {

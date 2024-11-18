@@ -4,11 +4,9 @@ import Menu from "./Menu";
 const MenuPage: React.FC = () => {
   return (
     <>
-      <main>
-        <Layout>
-          <Menu />
-        </Layout>
-      </main>
+      <Layout>
+        <Menu />
+      </Layout>
     </>
   );
 };

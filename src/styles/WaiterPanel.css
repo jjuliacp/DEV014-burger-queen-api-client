@@ -1,0 +1,17 @@
+.containerWaiterPanel {
+    padding: 0 3rem;
+}
+
+.sectionWaiterPanel {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+.sectionWaiterPanel li {
+    list-style-type: none;
+
+}
