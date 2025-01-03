@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getOrders } from "../Services/api";
 import Layout from "./Layout";
 import "../styles/WaiterPanel.css";
+import { getUserRole } from "../utils/localstorage";
 // Interfaz para los pedidos
 interface Order {
   id: string;
@@ -16,6 +17,7 @@ const WaiterPanel: React.FC = () => {
   const [processed, setProcessed] = useState(0);
   const [cancelled, setCancelled] = useState(0);
   const [orderHistory, setOrderHistory] = useState<Array<Order>>([]);
+    const [role, setRole] = useState<string>("");
   useEffect(() => {
     const loadOrders = async () => {
       try {
@@ -52,15 +54,17 @@ const WaiterPanel: React.FC = () => {
       }
     };
     loadOrders(); // llamar a la funcion para obtener productos
+    setRole(getUserRole());
   }, []); // para que efecto se ejecute una sola vez
   return (
     <Layout>
       <section className="containerWaiterPanel">
-        <div>
-          <h1>Bienvenido aqui esta tu resumen : </h1>
+        <div className="welcomePanel">
+          <p>{role.toUpperCase()}</p>
+          <h1>PANEL DE MESERO</h1>
         </div>
         <section className="sectionWaiterPanel">
-          <section>
+          <section className="activeOrdersPanel">
             <h2>Pedidos Activos</h2>
             {activeOrders.length === 0 ? ( // Verificar si no hay pedidos activos
               <p>No hay pedidos activos el día de hoy.</p>
@@ -76,14 +80,14 @@ const WaiterPanel: React.FC = () => {
             )}
           </section>
 
-          <div>
-            <h3>Resumen del dia</h3>
-            <h4>Pedidos procesados:{processed}</h4>
-            <h4>Pedidos cancelados:{cancelled}</h4>
-            <h4>Total de pedidos realizados: {processed + cancelled}</h4>
+          <div className="resumenPanel">
+            <h2>Resumen del dia</h2>
+            <p>Pedidos procesados:{processed}</p>
+            <p>Pedidos cancelados:{cancelled}</p>
+            <p>Total de pedidos realizados: {processed + cancelled}</p>
           </div>
-          <div>
-            <h3>Historial de pedidos</h3>
+          <div className="orderHistoryPanel">
+            <h2>Historial de pedidos</h2>
             {orderHistory.length === 0 ? (
               <p>No hay historial de pedidos.</p>
             ) : (
@@ -101,11 +105,6 @@ const WaiterPanel: React.FC = () => {
                 ))}
               </ul>
             )}
-            <div>
-              <p>Pedido #54</p>
-              <p>Total a pagar:</p>
-            </div>
-            <button>mas detalles</button>
           </div>
         </section>
       </section>
